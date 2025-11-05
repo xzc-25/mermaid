@@ -1,0 +1,66 @@
+graph TD
+    A[阶段一: 多源数据整合与治理] --> B[阶段二: 特征工程与数据准备]
+    B --> C[阶段三: 模型开发与训练]
+    C --> D[阶段四: 模型评估与解释]
+    D --> E[阶段五: 风险分层与应用转化]
+    E --> F[阶段六: 成果产出与闭环]
+
+    subgraph A [阶段一: 多源数据整合与治理]
+        A1[多中心临床数据<br/>(EMR, 登记处)] --> A2[公共数据库<br/>(如SEER, TCGA)]
+        A2 --> A3[多参数MRI影像数据]
+        A3 --> A4[实验室检查数据]
+        A1 & A2 & A3 & A4 --> A5[数据整合、清洗与标准化]
+        A5 --> A6[<font color=darkblue>输出: 清洁、标准化的多模态数据库</font>]
+    end
+
+    subgraph B [阶段二: 特征工程与数据准备]
+        A6 --> B1[临床特征提取<br/>(PSA, Gleason, TNM等)]
+        A6 --> B2[影像组学特征提取<br/>(从MRI中提取高维特征)]
+        B1 & B2 --> B3[特征选择与降维]
+        B3 --> B4[数据集划分<br/>- 训练集、验证集、测试集]
+        B4 --> B5[<font color=darkblue>输出: 清洁、标准化的特征矩阵</font>]
+    end
+
+    subgraph C [阶段三: 模型开发与训练]
+        B5 --> C1[多模型并行训练<br/>(Python/R平台)]
+        C1 --> C2_XGBoost
+        C1 --> C3_LightGBM
+        C1 --> C4_RandomForest
+        C1 --> C5_LogisticRegression
+        C2_XGBoost & C3_LightGBM & C4_RandomForest & C5_LogisticRegression --> C6[超参数调优与交叉验证]
+        C6 --> C7[<font color=darkgreen>输出: 经过验证的候选模型库</font>]
+    end
+
+    subgraph D [阶段四: 模型评估与解释]
+        C7 --> D1[性能比较与筛选]
+        D1 --> D2[<font color=darkorange>区分能力评估: ROC/AUC分析</font>]
+        D2 --> D3{选择最优模型<br/>(如: XGBoost)}
+        D3 --> D4[<font color=darkorange>临床实用性评估: 决策曲线分析</font>]
+        D3 --> D5[<font color=darkorange>可解释性分析: SHAP框架</font>]
+        D5 --> D6[全局特征重要性]
+        D5 --> D7[特征效应图(如PSA的J形曲线)]
+        D5 --> D8[个体化预测解释]
+        D4 & D6 & D7 & D8 --> D9[<font color=darkgreen>输出: 经过验证与解释的最终模型</font>]
+    end
+
+    subgraph E [阶段五: 风险分层与应用转化]
+        D9 --> E1[构建前列腺癌综合风险评估体系]
+        E1 --> E2[实现“早期筛查-风险分级-复发预警”全流程应用]
+        E2 --> E3[精准风险分层]
+        E3 --> E4[制定个体化预防与监测策略]
+        E4 --> E5[<font color=darkviolet>输出: 临床决策支持与公共卫生策略建议</font>]
+    end
+
+    subgraph F [阶段六: 成果产出与闭环]
+        E5 --> F1[撰写高水平学术论文]
+        E5 --> F2[开发临床决策支持系统(CDSS)原型]
+        E5 --> F3[申请软件著作权/发明专利]
+        F1 & F2 & F3 --> F4[<font color=darkviolet>最终成果: 形成从模型开发到临床转化的完整研究闭环</font>]
+    end
+
+    style A fill:#e6f3ff,stroke:#007bff,stroke-width:2px
+    style B fill:#e6f7ff,stroke:#28a745,stroke-width:2px
+    style C fill:#e6f7ff,stroke:#28a745,stroke-width:2px
+    style D fill:#fff3e0,stroke:#ffc107,stroke-width:2px
+    style E fill:#f3e5f5,stroke:#6f42c1,stroke-width:2px
+    style F fill:#f3e5f5,stroke:#6f42c1,stroke-width:2px
